@@ -43,7 +43,6 @@ export class Display extends Component<Props, State> {
   render() {
     return (
       <div>
-        <h2>Gallery Container</h2>
         <p
           onClick={() => {
             this.nextMovies();

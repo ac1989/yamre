@@ -9,7 +9,7 @@ type Props = {
 
 const AutoCompleteListItem = (props: Props) => (
   <div onClick={() => props.handleClick(props.movie)}>
-    <h4>{props.movie.title}</h4>
+    <li>{props.movie.title}</li>
   </div>
 );
 

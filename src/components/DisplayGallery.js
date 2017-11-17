@@ -2,6 +2,7 @@
 
 import React from 'react';
 import DisplayGalleryItem from './DisplayGalleryItem';
+import './DisplayGallery.css';
 
 type Props = {
   movies: Array<Object>,
@@ -24,12 +25,7 @@ const DisplayGallery = (props: Props) => {
       );
     });
   };
-  return (
-    <div>
-      <h3>Display Gallery</h3>
-      {renderGallery()}
-    </div>
-  );
+  return <div className="gallery-container">{renderGallery()}</div>;
 };
 
 export default DisplayGallery;

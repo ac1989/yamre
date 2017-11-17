@@ -1,6 +1,7 @@
 // @flow
 
 import React from 'react';
+import './DisplayGalleryItem.css';
 
 type Props = {
   movie: Object,
@@ -8,10 +9,15 @@ type Props = {
 };
 
 const DisplayGalleryItem = (props: Props) => {
+  const posterUrl = `https://image.tmdb.org/t/p/original${props.movie
+    .poster_path}`;
+
   return (
-    <div onClick={() => props.setSelectedMovie(props.movie)}>
-      <h4>{props.movie.title}</h4>
-    </div>
+    <div
+      className="display-gallery-item"
+      style={{ background: `url(${posterUrl})` }}
+      onClick={() => props.setSelectedMovie(props.movie)}
+    />
   );
 };
 

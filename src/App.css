@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  color: snow;
 }
 
 .App-logo {
@@ -22,7 +23,32 @@
   font-size: large;
 }
 
+.back-color {
+  height: 100vh;
+  width: 100%;
+  z-index: -2;
+  background: black;
+  position: fixed;
+}
+
+.backdrop {
+  height: 100vh;
+  width: 100%;
+  z-index: -1;
+  opacity: 0.33;
+  position: fixed;
+  background-position: center top;
+  background-size: cover;
+  /* This doesn't work. Not part of the spec. Must do with JS. */
+  -moz-transition: background-image 2s ease-in-out;
+  transition: background-image 2s ease-in-out;
+}
+
 @keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }

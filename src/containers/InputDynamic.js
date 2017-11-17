@@ -86,8 +86,8 @@ export class InputDynamic extends Component<Props, State> {
     return (
       <div>
         <p onClick={this.handleRTIClick}>Return To Search</p>
-        <h2>Input Dynamic Component</h2>
-        <h3>MODE: {this.props.mode}</h3>
+        <h4>Input Dynamic Component</h4>
+        <p>MODE: {this.props.mode}</p>
         {this.renderInput()}
         {this.renderAutcomplete()}
       </div>

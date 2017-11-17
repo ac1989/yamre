@@ -1,0 +1,9 @@
+.display-gallery-item {
+  background-color: black;
+  width: 208px;
+  height: 320px;
+  margin: 10px;
+  background-size: cover !important;
+  background-position: center;
+  transition: all 0.2s ease-out;
+}
