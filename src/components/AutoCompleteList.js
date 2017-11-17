@@ -4,7 +4,8 @@ import React from 'react';
 import AutoCompleteListItem from './AutoCompleteListItem';
 
 type Props = {
-  movies: Array<Object>
+  movies: Array<Object>,
+  handleClick: Function
 };
 
 const AutoCompleteList = (props: Props) => (

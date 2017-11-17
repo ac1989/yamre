@@ -9,7 +9,10 @@ import debounce from 'lodash/debounce';
 
 type Props = {
   mode: String,
-  autocomplete: Array<Object>
+  autocomplete: Array<Object>,
+  resetAutocomplete: Function,
+  setMode: Function,
+  fetchRecommendations: Function
 };
 
 type State = {
@@ -46,7 +49,7 @@ export class InputDynamic extends Component<Props, State> {
     this.props.setMode('input');
   };
 
-  handleACClick = movie => {
+  handleACClick = (movie: Object) => {
     // clear autocomplete:
     this.props.resetAutocomplete();
     // clear input:

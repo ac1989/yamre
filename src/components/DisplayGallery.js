@@ -1,7 +1,15 @@
+// @flow
+
 import React from 'react';
 import DisplayGalleryItem from './DisplayGalleryItem';
 
-const DisplayGallery = props => {
+type Props = {
+  movies: Array<Object>,
+  index: number,
+  setSelectedMovie: Function
+};
+
+const DisplayGallery = (props: Props) => {
   const indexStart = props.index;
   const indexEnd = props.index + 5;
 

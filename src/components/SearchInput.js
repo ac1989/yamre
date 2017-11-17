@@ -3,7 +3,8 @@
 import React from 'react';
 
 type Props = {
-  handleChange: Function
+  handleChange: Function,
+  searchString: string
 };
 
 const SearchInput = (props: Props) => (

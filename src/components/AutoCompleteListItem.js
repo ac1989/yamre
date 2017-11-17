@@ -3,7 +3,8 @@
 import React from 'react';
 
 type Props = {
-  movie: Object
+  movie: Object,
+  handleClick: Function
 };
 
 const AutoCompleteListItem = (props: Props) => (

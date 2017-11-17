@@ -1,6 +1,12 @@
+// @flow
+
 import React from 'react';
 
-const DisplayDetails = props => {
+type Props = {
+  movie: Object
+};
+
+const DisplayDetails = (props: Props) => {
   return <div>{props.movie.overview}</div>;
 };
 

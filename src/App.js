@@ -6,7 +6,11 @@ import './App.css';
 import InputDynamic from './containers/InputDynamic';
 import Display from './containers/Display';
 
-class App extends React.Component<{}> {
+type Props = {
+  mode: string
+};
+
+class App extends React.Component<Props> {
   renderConditional = () => {
     const mode = this.props.mode;
     if (mode === 'generating') {

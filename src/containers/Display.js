@@ -1,11 +1,23 @@
+// @flow
+
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import DisplayGallery from '../components/DisplayGallery';
 import DisplayDetails from '../components/DisplayDetails';
 import * as actions from '../actions';
 
-export class Display extends Component {
-  constructor(props) {
+type Props = {
+  recommendations: Array<Object>,
+  selectedMovie: Object,
+  setSelectedMovie: Function
+};
+
+type State = {
+  movieIndex: number
+};
+
+export class Display extends Component<Props, State> {
+  constructor(props: Props) {
     super(props);
     this.state = {
       movieIndex: 0
@@ -24,7 +36,7 @@ export class Display extends Component {
     });
   };
 
-  setSelectedMovie = movie => {
+  setSelectedMovie = (movie: Object) => {
     this.props.setSelectedMovie(movie);
   };
 
