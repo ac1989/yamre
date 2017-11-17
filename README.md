@@ -1,6 +1,8 @@
-## YAMRE
+# YAMRE
 
-# TODO
+> Yet Another Movie Recommendation Engine
+
+## TODO
 
 + Styles
 + Animation
