@@ -49,7 +49,6 @@ export function* fetchRecommendations(action) {
 
   // First get deeper details of mans movie,
   const seedMovie = yield call(fetchSeedMovie, movieId);
-  console.log(seedMovie);
 
   // Then discover some movies based on that,
   // Dummy for now, just returns movies of simlar cast,
@@ -63,6 +62,7 @@ export function* fetchRecommendations(action) {
   yield put({ type: types.SET_RECOMMENDATIONS, recommendations: candidates });
 
   // And change the mode to display,
+  yield put({ type: types.SET_SELECTED_MOVIE, movie: candidates[0] });
   yield put({ type: types.SET_MODE, mode: 'display' });
 }
 

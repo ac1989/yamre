@@ -10,6 +10,7 @@ const SearchInput = (props: Props) => (
   <div>
     <input
       type="text"
+      placeholder="enter moviefilm..."
       value={props.searchString}
       onChange={props.handleChange}
     />

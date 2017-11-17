@@ -5,3 +5,4 @@ export const SET_AUTOCOMPLETE = 'set_autocomplete';
 export const RESET_AUTOCOMPLETE = 'reset_autocomplete';
 export const SET_RECOMMENDATIONS = 'set_recommendations';
 export const SET_SEED_MOVIE = 'set_seed_movie';
+export const SET_SELECTED_MOVIE = 'set_selected_movie';

@@ -21,7 +21,7 @@ export class InputDynamic extends Component<Props, State> {
     super(props);
 
     this.state = {
-      searchString: 'placeholderer'
+      searchString: ''
     };
 
     this.fetchAutoMovies = this.fetchAutoMovies.bind(this);

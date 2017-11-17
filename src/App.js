@@ -4,7 +4,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import './App.css';
 import InputDynamic from './containers/InputDynamic';
-import Gallery from './containers/Gallery';
+import Display from './containers/Display';
 
 class App extends React.Component<{}> {
   renderConditional = () => {
@@ -13,7 +13,7 @@ class App extends React.Component<{}> {
       return <div>Generating</div>;
     }
     if (mode === 'display') {
-      return <Gallery />;
+      return <Display />;
     }
   };
   render() {
