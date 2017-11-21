@@ -1,15 +1,14 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
-import { delay } from 'redux-saga';
 import axios from 'axios';
-import rater from './rater';
 import * as types from '../actions/types';
+import { deDupe } from './helpers';
 
-export function* fetchAutoMovies(action) {
-  const key = '8df45a2576b9f04343b3848be392d4ba';
+const API_KEY = '?api_key=8df45a2576b9f04343b3848be392d4ba';
+
+export function* fetchAutoCompleteMovies(action) {
   const url =
-    `https://api.themoviedb.org/3/search/movie?` +
-    `api_key=${key}&language=en-US&query=${action.searchString}` +
-    `&page=1&include_adult=false`;
+    `https://api.themoviedb.org/3/search/movie${API_KEY}` +
+    `&language=en-US&query=${action.searchString}&page=1&include_adult=false`;
   try {
     const response = yield call(axios.get, url);
     yield put({ type: types.SET_AUTOCOMPLETE, movies: response.data.results });
@@ -19,62 +18,79 @@ export function* fetchAutoMovies(action) {
 }
 
 export function* fetchCandidates(seedMovie) {
-  const candidates = [];
-
+  console.log(seedMovie);
+  let candidates = [];
+  let minRating = seedMovie.vote_average * 0.85;
   const DISCOVER_URL = 'https://api.themoviedb.org/3/discover/movie';
-  const API_KEY = '?api_key=8df45a2576b9f04343b3848be392d4ba';
   const COMMON_OPTS =
     '&language=en-US&sort_by=popularity.desc&include_adult=false' +
-    '&include_video=false&page=1';
-  const makeRequestUrl = query => {
+    `&include_video=false&page=1&vote_average.gte=${minRating}&vote_count.gte=100`;
+
+  function* makeRequest(query) {
     let requestUrl = `${DISCOVER_URL}${API_KEY}${COMMON_OPTS}${query}`;
-    return requestUrl;
+    const response = yield call(axios.get, requestUrl);
+    candidates.push(...response.data.results);
+  }
+
+  try {
+    let queryString = '&with_crew=';
+    const director = seedMovie.credits.crew.find(crewMember => {
+      return crewMember.job === 'Director';
+    });
+
+    if (director) {
+      queryString += director.id;
+      yield makeRequest(queryString);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+
+  try {
+    let queryString = '&with_crew=';
+    const writers = seedMovie.credits.crew.filter(crewMember => {
+      return crewMember.department === 'Writing';
+    });
+
+    if (writers.length > 0) {
+      writers.forEach(writer => {
+        queryString += writer.id + '|';
+      });
+      queryString = queryString.substring(0, queryString.length - 1);
+
+      yield makeRequest(queryString);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+
+  const importantGenres = {
+    Horror: 'Horror',
+    Family: 'Family'
   };
 
-  // movies by crew,
-  try {
-    let crewString = '&with_crew=';
-    seedMovie.credits.crew.slice(0, 3).forEach(crewMember => {
-      crewString += crewMember.id + '|';
-    });
-    crewString = crewString.substring(0, crewString.length - 1);
-
-    const response = yield call(axios.get, makeRequestUrl(crewString));
-    candidates.push(...response.data.results);
-  } catch (error) {}
-
-  // movies by cast,
-  try {
-    let castString = '&with_cast=';
-    seedMovie.credits.cast.slice(0, 3).forEach(castMember => {
-      castString += castMember.id + '|';
-    });
-    castString = castString.substring(0, castString.length - 1);
-
-    const response = yield call(axios.get, makeRequestUrl(castString));
-    candidates.push(...response.data.results);
-  } catch (error) {}
-
-  // movies by genre,
-  try {
-    let genreString = '&with_genres=';
+  if (candidates.length < 20) {
+    let importantGenreId = '';
     seedMovie.genres.forEach(genre => {
-      genreString += genre.id + '|';
+      let detected = importantGenres.hasOwnProperty(genre.name);
+      if (detected) {
+        importantGenreId += genre.id;
+      }
     });
-    genreString = genreString.substring(0, genreString.length - 1);
 
-    const response = yield call(axios.get, makeRequestUrl(genreString));
-    candidates.push(...response.data.results);
-  } catch (error) {}
-  return candidates;
-}
-
-export function* fetchExtraDetails(candidates) {
-  candidates = candidates.slice(0, 20);
-  for (let i = 0; i < candidates.length; i++) {
-    const enriched = yield fetchMovieDetails(candidates[i].id);
-    candidates[i] = enriched;
+    if (importantGenreId.length > 0) {
+      try {
+        const queryString = `&with_genres=${importantGenreId}`;
+        yield makeRequest(queryString);
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      console.log('No Important Genres');
+    }
   }
+
+  candidates = deDupe(seedMovie, candidates);
   return candidates;
 }
 
@@ -82,7 +98,7 @@ export function* fetchMovieDetails(movieId) {
   const response = yield call(
     axios.get,
     `https://api.themoviedb.org/3/movie/${movieId}` +
-      `?api_key=8df45a2576b9f04343b3848be392d4ba&append_to_response=credits`
+      `?api_key=8df45a2576b9f04343b3848be392d4ba&append_to_response=credits,keywords`
   );
   return response.data;
 }
@@ -97,13 +113,8 @@ export function* fetchRecommendations(action) {
   const seedMovie = yield call(fetchMovieDetails, movieId);
 
   // Then discover some movies based on that,
-  // Dummy for now, just returns movies of simlar cast,
   let candidates = yield call(fetchCandidates, seedMovie);
   console.log(candidates);
-  candidates = yield call(fetchExtraDetails, candidates);
-
-  // Then put them through the grindr,
-  candidates = yield call(rater, seedMovie, candidates);
 
   // Then bake those movies to state,
   yield put({ type: types.SET_RECOMMENDATIONS, recommendations: candidates });
@@ -114,6 +125,6 @@ export function* fetchRecommendations(action) {
 }
 
 export default function* rootSaga() {
-  yield takeLatest('fetch_automovies', fetchAutoMovies);
+  yield takeLatest('fetch_automovies', fetchAutoCompleteMovies);
   yield takeLatest(types.FETCH_RECOMMENDATIONS, fetchRecommendations);
 }
