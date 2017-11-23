@@ -1,0 +1,15 @@
+.input-dynamic {
+  width: 90%;
+  margin: auto;
+}
+
+.instructions {
+  margin-top: 1.41em;
+  width: 600px;
+  margin: auto;
+  text-align: center;
+}
+
+.instructions p {
+  margin-top: 1.41em;
+}

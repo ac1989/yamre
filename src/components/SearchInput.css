@@ -1,0 +1,22 @@
+.search-input {
+  text-align: center;
+  padding-top: 3em;
+}
+
+input {
+  border: none;
+  border-bottom: 3px solid aquamarine;
+  background-color: snow;
+  padding: 10px;
+  outline: none;
+  transition: all 0.2s ease-out;
+}
+
+input:focus {
+  padding: 12px 15px 12px 15px;
+  box-shadow: 0 1px 8px #222222;
+}
+
+input:focus::-webkit-input-placeholder {
+  opacity: 0;
+}

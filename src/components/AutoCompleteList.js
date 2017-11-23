@@ -2,6 +2,7 @@
 
 import React from 'react';
 import AutoCompleteListItem from './AutoCompleteListItem';
+import './AutoCompleteList.css';
 
 type Props = {
   movies: Array<Object>,
@@ -9,9 +10,9 @@ type Props = {
 };
 
 const AutoCompleteList = (props: Props) => (
-  <div>
+  <div className="auto-complete-list">
     {props.movies
-      .slice(0, 8)
+      .slice(0, 5)
       .map(movie => (
         <AutoCompleteListItem
           movie={movie}

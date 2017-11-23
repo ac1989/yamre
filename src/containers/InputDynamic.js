@@ -6,6 +6,7 @@ import SearchInput from '../components/SearchInput';
 import AutoCompleteList from '../components/AutoCompleteList';
 import * as actions from '../actions/';
 import debounce from 'lodash/debounce';
+import './InputDynamic.css';
 
 type Props = {
   mode: String,
@@ -47,16 +48,14 @@ export class InputDynamic extends Component<Props, State> {
 
   handleRTIClick = () => {
     this.props.setMode('input');
+    this.props.setSelectedMovie(null);
   };
 
   handleACClick = (movie: Object) => {
-    // clear autocomplete:
     this.props.resetAutocomplete();
-    // clear input:
     this.setState({
       searchString: ''
     });
-    console.log(movie.id);
     this.props.fetchRecommendations(movie.id);
   };
 
@@ -68,28 +67,41 @@ export class InputDynamic extends Component<Props, State> {
           handleChange={this.handleChange}
         />
       );
+    } else {
+      return <p onClick={this.handleRTIClick}>WE HAVE TO GO BACK</p>;
     }
   };
 
-  renderAutcomplete = () => {
-    if (this.props.mode === 'input' && this.props.autocomplete.length > 0) {
-      return (
-        <AutoCompleteList
-          movies={this.props.autocomplete}
-          handleClick={this.handleACClick}
-        />
-      );
+  renderAutocomplete = () => {
+    if (this.props.mode === 'input') {
+      if (this.props.autocomplete.length > 0) {
+        return (
+          <AutoCompleteList
+            movies={this.props.autocomplete}
+            handleClick={this.handleACClick}
+          />
+        );
+      } else {
+        return (
+          <div className="instructions">
+            <p>Enter a Movie you like in the box above.</p>
+            <p>
+              A super intelligent RESTful AI will punt your movie through a
+              proxied Neural Network consisting of multiple markov blockchains
+              and self driving roombas in order to generate bespoke
+              Recommendations that support <em>your</em> needs.
+            </p>
+          </div>
+        );
+      }
     }
   };
 
   render() {
     return (
-      <div>
-        <p onClick={this.handleRTIClick}>Return To Search</p>
-        <h4>Input Dynamic Component</h4>
-        <p>MODE: {this.props.mode}</p>
+      <div className="input-dynamic">
         {this.renderInput()}
-        {this.renderAutcomplete()}
+        {this.renderAutocomplete()}
       </div>
     );
   }

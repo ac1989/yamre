@@ -1,0 +1,22 @@
+export const backdrops = [
+  '/7OMAfDJikBxItZBIug0NJig5DHD.jpg',
+  '/6xKCYgH16UuwEGAyroLU6p8HLIn.jpg',
+  '/6bbZ6XyvgfjhQwbplnUh1LSj1ky.jpg',
+  '/xBKGJQsAIeweesB79KC89FpBrVr.jpg',
+  '/9rZg1J6vMQoDVSgRyWcpJa8IAGy.jpg',
+  '/8uO0gUM8aNqYLs1OsTBQiXu0fEv.jpg',
+  '/gLbBRyS7MBrmVUNce91Hmx9vzqI.jpg',
+  '/rIpSszng8P0DL0TimSzZbpfnvh1.jpg',
+  '/mnpRKVSXBX6jb56nabvmGKA0Wig.jpg',
+  '/hqkIcbrOHL86UncnHIsHVcVmzue.jpg',
+  '/bORe0eI72D874TMawOOFvqWS6Xe.jpg',
+  '/4E7YQcwui0PfNXguf4V2X8YocPC.jpg',
+  '/pIUvQ9Ed35wlWhY2oU6OmwEsmzG.jpg',
+  '/xu9zaAevzQ5nnrsXN6JcahLnG4i.jpg',
+  '/3md49VBCeqY6MSNyAVY6d5eC6bA.jpg',
+  '/8BPZO0Bf8TeAy8znF43z8soK3ys.jpg',
+  '/x4N74cycZvKu5k3KDERJay4ajR3.jpg',
+  '/s2bT29y0ngXxxu2IA8AOzzXTRhd.jpg',
+  '/vnT6HzjLSDrAweHn9xWykb8Ii6T.jpg',
+  '/c4zJK1mowcps3wvdrm31knxhur2.jpg'
+];

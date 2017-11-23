@@ -6,4 +6,24 @@
   background-size: cover !important;
   background-position: center;
   transition: all 0.2s ease-out;
+  animation: 0.2s ease-out 0s 1 slideUp;
+}
+
+.display-gallery-item:hover {
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+}
+
+.selected-movie {
+  transform: scale(1.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+}
+
+@keyframes slideUp {
+  0% {
+    transform: translateY(40px);
+  }
+  100% {
+    transform: translateY(0);
+  }
 }

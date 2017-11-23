@@ -1,6 +1,7 @@
 // @flow
 
 import React from 'react';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import DisplayGalleryItem from './DisplayGalleryItem';
 import './DisplayGallery.css';
 
@@ -19,6 +20,7 @@ const DisplayGallery = (props: Props) => {
       return (
         <DisplayGalleryItem
           setSelectedMovie={props.setSelectedMovie}
+          selectedMovie={props.selectedMovie}
           movie={movie}
           key={movie.id}
         />

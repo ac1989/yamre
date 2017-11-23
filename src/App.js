@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import './App.css';
 import InputDynamic from './containers/InputDynamic';
 import Display from './containers/Display';
+import { backdrops } from './services/backdrops';
 
 type Props = {
   mode: string,
@@ -13,18 +14,16 @@ type Props = {
 
 class App extends React.Component<Props> {
   backdropUrl = () => {
-    if (this.props.selectedMovie) {
-      // Preload image for smooth transition.
-      const imgUrl = `https://image.tmdb.org/t/p/original${this.props
-        .selectedMovie.backdrop_path}`;
-      const image = new Image();
-      image.src = imgUrl;
-      image.onload = function() {
-        document.querySelector(
-          '.backdrop'
-        ).style.backgroundImage = `url(${imgUrl})`;
-      };
-    }
+    let url = 'https://image.tmdb.org/t/p/original';
+    // Preload image for smooth transition.
+    const imgUrl = url + this.props.backdrop;
+    const image = new Image();
+    image.src = imgUrl;
+    image.onload = function() {
+      document.querySelector('.backdrop').style.backgroundImage = `url(${
+        imgUrl
+      })`;
+    };
   };
   renderConditional = () => {
     const mode = this.props.mode;
@@ -51,8 +50,13 @@ class App extends React.Component<Props> {
 }
 
 // give app.js access to state required to render background,
-const mapStateToProps = ({ mode, seedMovie, selectedMovie }) => {
-  return { mode, seedMovie, selectedMovie };
+const mapStateToProps = ({ mode, seedMovie, selectedMovie, backdrop }) => {
+  return {
+    mode,
+    seedMovie,
+    selectedMovie,
+    backdrop
+  };
 };
 
 export default connect(mapStateToProps)(App);

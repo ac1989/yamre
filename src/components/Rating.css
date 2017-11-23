@@ -1,0 +1,9 @@
+.rating {
+  width: 80px;
+  height: 80px;
+  background: green;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.41em;
+}

@@ -24,45 +24,23 @@ export class Display extends Component<Props, State> {
     };
   }
 
-  nextMovies = () => {
-    this.setState({
-      movieIndex: this.state.movieIndex + 5
-    });
-  };
-
-  prevMovies = () => {
-    this.setState({
-      movieIndex: this.state.movieIndex - 5
-    });
-  };
-
   setSelectedMovie = (movie: Object) => {
     this.props.setSelectedMovie(movie);
+    this.props.setBackdropUrl(movie.backdrop_path);
   };
 
   render() {
     return (
       <div>
-        <p
-          onClick={() => {
-            this.nextMovies();
-          }}
-        >
-          -> Next ->
-        </p>
         <DisplayGallery
           movies={this.props.recommendations}
           index={this.state.movieIndex}
           setSelectedMovie={this.setSelectedMovie}
+          selectedMovie={this.props.selectedMovie}
         />
-        <p
-          onClick={() => {
-            this.prevMovies();
-          }}
-        >
-          Prev
-        </p>
-        <DisplayDetails movie={this.props.selectedMovie} />
+        {this.props.selectedMovie && (
+          <DisplayDetails movie={this.props.selectedMovie} />
+        )}
       </div>
     );
   }

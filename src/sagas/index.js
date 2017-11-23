@@ -1,4 +1,4 @@
-import { call, put, takeLatest } from 'redux-saga/effects';
+import { all, call, put, takeLatest } from 'redux-saga/effects';
 import axios from 'axios';
 import * as types from '../actions/types';
 import { deDupe } from './helpers';
@@ -90,7 +90,19 @@ export function* fetchCandidates(seedMovie) {
     }
   }
 
+  if (candidates.length > 20) {
+    candidates = candidates.slice(0, 19);
+  }
+
+  console.log(candidates);
   candidates = deDupe(seedMovie, candidates);
+
+  candidates = yield all(
+    candidates.map(candidate => {
+      return fetchMovieDetails(candidate.id);
+    })
+  );
+
   return candidates;
 }
 
@@ -111,6 +123,7 @@ export function* fetchRecommendations(action) {
 
   // First get deeper details of mans movie,
   const seedMovie = yield call(fetchMovieDetails, movieId);
+  yield put({ type: types.SET_BACKDROP, url: seedMovie.backdrop_path });
 
   // Then discover some movies based on that,
   let candidates = yield call(fetchCandidates, seedMovie);
@@ -120,7 +133,6 @@ export function* fetchRecommendations(action) {
   yield put({ type: types.SET_RECOMMENDATIONS, recommendations: candidates });
 
   // And change the mode to display,
-  yield put({ type: types.SET_SELECTED_MOVIE, movie: candidates[0] });
   yield put({ type: types.SET_MODE, mode: 'display' });
 }
 

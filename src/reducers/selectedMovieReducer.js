@@ -1,6 +1,6 @@
 import { SET_SELECTED_MOVIE } from '../actions/types';
 
-const initialState = 'input';
+const initialState = null;
 
 export default (state = initialState, action) => {
   switch (action.type) {
