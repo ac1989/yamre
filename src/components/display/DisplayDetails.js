@@ -3,7 +3,7 @@
 import React from 'react';
 
 import './DisplayDetails.css';
-import Rating from './Rating';
+import Rating from '../reusable/Rating';
 
 type Props = {
   movie: Object

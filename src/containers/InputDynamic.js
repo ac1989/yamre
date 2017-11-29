@@ -3,7 +3,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import SearchInput from '../components/SearchInput';
-import AutoCompleteList from '../components/AutoCompleteList';
+import AutoCompleteList from '../components/autocomplete/AutoCompleteList';
 import * as actions from '../actions/';
 import debounce from 'lodash/debounce';
 import './InputDynamic.css';
@@ -48,14 +48,14 @@ export class InputDynamic extends Component<Props, State> {
 
   handleRTIClick = () => {
     this.props.setMode('input');
+    this.setState({
+      searchString: ''
+    });
     this.props.setSelectedMovie(null);
   };
 
   handleACClick = (movie: Object) => {
     this.props.resetAutocomplete();
-    this.setState({
-      searchString: ''
-    });
     this.props.fetchRecommendations(movie.id);
   };
 
@@ -67,8 +67,12 @@ export class InputDynamic extends Component<Props, State> {
           handleChange={this.handleChange}
         />
       );
-    } else {
-      return <p onClick={this.handleRTIClick}>WE HAVE TO GO BACK</p>;
+    } else if (this.props.mode === 'display') {
+      return (
+        <p className="return" onClick={this.handleRTIClick}>
+          {this.props.seedMovie.title} \/
+        </p>
+      );
     }
   };
 
@@ -107,8 +111,8 @@ export class InputDynamic extends Component<Props, State> {
   }
 }
 
-const mapStateToProps = ({ mode, autocomplete }) => {
-  return { mode, autocomplete };
+const mapStateToProps = ({ mode, autocomplete, seedMovie }) => {
+  return { mode, autocomplete, seedMovie };
 };
 
 export default connect(mapStateToProps, actions)(InputDynamic);

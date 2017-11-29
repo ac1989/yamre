@@ -7,7 +7,7 @@
   padding-bottom: 30px;
   margin-bottom: 40px;
   transition: all 0.2s ease-out;
-  animation: 0.2s ease-out slideUp;
+  animation: 0.2s ease-out fadeUp;
 }
 
 .details-left {
@@ -40,11 +40,11 @@
   padding-bottom: 0.8em;
 }
 
-@keyframes slideUp {
+@keyframes fadeUp {
   0% {
-    transform: translateY(40px);
+    opacity: 0;
   }
   100% {
-    transform: translateY(0);
+    opacity: 1;
   }
 }

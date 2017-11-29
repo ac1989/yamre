@@ -13,18 +13,26 @@ type Props = {
 };
 
 class App extends React.Component<Props> {
-  backdropUrl = () => {
+  componentDidMount() {
+    // Setting initial Backdrop,
     let url = 'https://image.tmdb.org/t/p/original';
-    // Preload image for smooth transition.
+    // Preload image for smooth transition,
     const imgUrl = url + this.props.backdrop;
     const image = new Image();
     image.src = imgUrl;
-    image.onload = function() {
-      document.querySelector('.backdrop').style.backgroundImage = `url(${
+
+    // create new background element,
+    let backdropNew = document.createElement('div');
+    backdropNew.classList.add('backdrop-new');
+    backdropNew.style = `background-image: url("${imgUrl}"); opacity: 0`;
+    document.querySelector('.App').prepend(backdropNew);
+    setTimeout(() => {
+      document.querySelector('.backdrop-new').style = `background-image: url("${
         imgUrl
-      })`;
-    };
-  };
+      }"); opacity: 0.33`;
+    }, 1);
+  }
+
   renderConditional = () => {
     const mode = this.props.mode;
     if (mode === 'generating') {
@@ -38,10 +46,6 @@ class App extends React.Component<Props> {
     return (
       <div className="App">
         <div className="back-color" />
-        <div
-          className="backdrop"
-          style={{ backgroundImage: this.backdropUrl() }}
-        />
         <InputDynamic />
         {this.renderConditional()}
       </div>

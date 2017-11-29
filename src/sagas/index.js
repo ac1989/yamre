@@ -24,7 +24,9 @@ export function* fetchCandidates(seedMovie) {
   const DISCOVER_URL = 'https://api.themoviedb.org/3/discover/movie';
   const COMMON_OPTS =
     '&language=en-US&sort_by=popularity.desc&include_adult=false' +
-    `&include_video=false&page=1&vote_average.gte=${minRating}&vote_count.gte=100`;
+    `&include_video=false&page=1&vote_average.gte=${
+      minRating
+    }&vote_count.gte=100`;
 
   function* makeRequest(query) {
     let requestUrl = `${DISCOVER_URL}${API_KEY}${COMMON_OPTS}${query}`;
@@ -131,6 +133,7 @@ export function* fetchRecommendations(action) {
 
   // Then bake those movies to state,
   yield put({ type: types.SET_RECOMMENDATIONS, recommendations: candidates });
+  yield put({ type: types.SET_SEED_MOVIE, movie: seedMovie });
 
   // And change the mode to display,
   yield put({ type: types.SET_MODE, mode: 'display' });

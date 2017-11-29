@@ -13,3 +13,7 @@
 .instructions p {
   margin-top: 1.41em;
 }
+
+.return {
+  cursor: pointer;
+}

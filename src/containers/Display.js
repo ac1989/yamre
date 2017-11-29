@@ -2,8 +2,8 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import DisplayGallery from '../components/DisplayGallery';
-import DisplayDetails from '../components/DisplayDetails';
+import DisplayGallery from '../components/display/DisplayGallery';
+import DisplayDetails from '../components/display/DisplayDetails';
 import * as actions from '../actions';
 
 type Props = {
