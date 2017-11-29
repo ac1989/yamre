@@ -14,7 +14,7 @@ const DisplayDetails = (props: Props) => {
   const cast02 = props.movie.credits.cast[1];
   const cast03 = props.movie.credits.cast[2];
   return (
-    <div class="details">
+    <div className="details">
       <div className="details-left">
         <h2>{props.movie.title}</h2>
         <p>{props.movie.overview}</p>

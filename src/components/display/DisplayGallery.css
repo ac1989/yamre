@@ -1,6 +1,7 @@
 .gallery-container {
   width: 90%;
   margin: auto;
+  margin-top: 40px;
   display: flex;
   justify-content: space-around;
   align-content: center;

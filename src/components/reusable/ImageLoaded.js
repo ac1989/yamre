@@ -21,6 +21,9 @@ export default class ImageLoaded extends Component {
       this.setState(state => {
         return { imageLoaded: true };
       });
+      if (this.props.onLoaded) {
+        this.props.onLoaded();
+      }
     };
   }
   render() {

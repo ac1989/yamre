@@ -1,5 +1,8 @@
 .movie-item-image {
   display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
   height: 320px;
   min-width: 208px;
   animation: fadeIn 0.6s ease-in-out;
@@ -36,6 +39,7 @@
 }
 
 .movie-card {
+  position: relative;
   width: 208px;
   height: 320px;
   background: #111111;
